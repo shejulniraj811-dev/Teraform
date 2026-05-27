@@ -146,35 +146,3 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
-
-# -----------------------------------------------------------------------------
-# Remote Backend (S3)
-# NOTE: These variables are for documentation / reference only.
-# The backend{} block in backend.tf cannot use var.* references — Terraform
-# evaluates the backend before variables are loaded.
-# Use these to keep a single source of truth and pass them as -backend-config
-# flags, or update backend.tf directly.
-# -----------------------------------------------------------------------------
-variable "tf_state_bucket" {
-  description = "Name of the S3 bucket that stores the Terraform state file."
-  type        = string
-  default     = "niraj-terraform-state"
-}
-
-variable "tf_state_key" {
-  description = "S3 object key (path) for the state file inside the bucket."
-  type        = string
-  default     = "dev/ec2/terraform.tfstate"
-}
-
-variable "tf_state_region" {
-  description = "AWS region where the S3 state bucket and DynamoDB lock table reside."
-  type        = string
-  default     = "us-east-1"
-}
-
-variable "tf_lock_table" {
-  description = "Name of the DynamoDB table used for Terraform state locking."
-  type        = string
-  default     = "niraj-terraform-lock"
-}

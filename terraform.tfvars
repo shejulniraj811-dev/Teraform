@@ -36,9 +36,3 @@ tags = {
   Owner   = "Niraj"
   Project = "Teraform"
 }
-
-# Remote Backend (S3) — must match values in backend.tf
-tf_state_bucket = "niraj-terraform-state"
-tf_state_key    = "dev/ec2/terraform.tfstate"
-tf_state_region = "us-east-1"
-tf_lock_table   = "niraj-terraform-lock"
