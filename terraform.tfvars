@@ -13,7 +13,7 @@ aws_profile = ""
 ami_id         = "ami-091138d0f0d41ff90"
 instance_type  = "t3.micro"
 instance_count = 1
-key_name       = "aws_key.pem"
+key_name       = "aws_key"
 
 # Networking
 subnet_id                   = ""

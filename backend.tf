@@ -61,11 +61,10 @@ terraform {
     # Switch to "aws:kms" and set kms_key_id if you need a customer-managed key.
     encrypt = true
 
-    # ── State locking (DynamoDB) ────────────────────────────────────────────
-    # Prevents two people / CI jobs from running `terraform apply` at the same
-    # time and corrupting the state.  Table must have a String partition key
-    # named exactly "LockID".
-    dynamodb_table = "niraj-terraform-lock"
+    # ── State locking ──────────────────────────────────────────────────────
+    # use_lockfile is the modern way (Terraform >= 1.10) — stores the lock
+    # as a .tflock file directly in the same S3 bucket, no DynamoDB needed.
+    use_lockfile = true
 
     # ── Access credentials ──────────────────────────────────────────────────
     # Leave blank to use the default credential chain (env vars, ~/.aws, etc.).
