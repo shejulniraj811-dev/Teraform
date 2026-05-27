@@ -1,16 +1,30 @@
 provider "aws" {
-  region = "us-east-1"
+  region  = var.aws_region
+  profile = var.aws_profile != "" ? var.aws_profile : null
 }
-resource "aws_instance" "myEc2instance" {
-  ami           = "ami-091138d0f0d41ff90"
-  instance_type = "t3.micro"
-  key_name = "aws_key.pem"
-  vpc_security_group_ids = ["sg-0981f1bdf4af6c11d"] 
 
- tags = {
-    Name = "Niraj"
-    name = "Niraj"
-    env = "dev"
+resource "aws_instance" "myEc2instance" {
+  count = var.instance_count
+
+  ami                         = var.ami_id
+  instance_type               = var.instance_type
+  key_name                    = var.key_name
+  subnet_id                   = var.subnet_id != "" ? var.subnet_id : null
+  vpc_security_group_ids      = var.vpc_security_group_ids
+  associate_public_ip_address = var.associate_public_ip_address
+  monitoring                  = var.enable_detailed_monitoring
+
+  root_block_device {
+    volume_size = var.root_volume_size
+    volume_type = var.root_volume_type
+    encrypted   = var.root_volume_encrypted
   }
 
+  tags = merge(
+    {
+      Name = var.instance_name
+      env  = var.environment
+    },
+    var.tags
+  )
 }
